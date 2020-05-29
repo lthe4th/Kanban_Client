@@ -1,0 +1,16 @@
+<div class="container-fluid" style="min-height: 40vh;">
+    <div class="Heading row">
+        <div class="cut-text">
+            {{data.todoName}}
+        </div>
+        <button mat-icon-button>
+            <mat-icon (click)="changeName()">edit</mat-icon>
+        </button>
+    </div>
+    <mat-tab-group>
+        <mat-tab label="CheckList" class="checklist" color="accent">
+            <app-check-list [todoId]="data.id"></app-check-list>
+        </mat-tab>
+    </mat-tab-group>
+    <button mat-raised-button color="accent" class="deletebtn" (click)="deleteThisTask()">Delete this Task</button>
+</div>

@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="checklist">
+        <div *ngIf="checkList.length >0">
+            <div *ngIf="percentOfFinished > 0" class="progress_bar">
+                <h4 style="margin-top: 1rem;">{{percentOfFinished}}% Finished</h4>
+                <mat-progress-bar mode="determinate" [value]="percentOfFinished" style="width: 50%;margin: 1rem;"></mat-progress-bar>
+            </div>
+            <mat-checkbox *ngFor="let item of checkList" [checked]="item.isfinished" (click)="UpdateStatus(item)">
+                {{item.itemName}}</mat-checkbox>
+
+        </div>
+    </div>
+    <div class="NewItem">
+        <div class="InputForm col-md-4 row">
+            <mat-form-field>
+                <mat-label>Add Item</mat-label>
+                <input matInput #NewItemName (keydown.enter)="NewItem(todoId,NewItemName.value);NewItemName.value=''">
+            </mat-form-field>
+            <button mat-flat-button mat-icon-button color="primary"
+                (click)="NewItem(todoId,NewItemName.value);NewItemName.value=''">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

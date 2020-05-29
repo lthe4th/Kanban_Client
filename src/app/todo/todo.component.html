@@ -1,0 +1,45 @@
+<div *ngIf="todos">
+    <div class="on_mobile" style="overflow: scroll; padding: .5rem;">
+        <app-new-todo (NewTodoEvent)="ReceivedNewTodo($event)" [BoardId]="this.Id"></app-new-todo>
+        <div class="Todos " *ngFor="let todo of todos">
+            <button mat-raised-button (click)="OpenDetail(todo)" [color]="getTodoColor(todo.prio)"
+                class="Todo">{{todo.todoName}}</button>
+            <button mat-flat-button [matMenuTriggerFor]="todoMenu" [matMenuTriggerData]="{id:todo.id}" style="background-color: transparent;color: white;">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="on_Desktop">
+        <div cdkDropList [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)" #list="cdkDropList"
+            [cdkDropListConnectedTo]="list" class="droplist">
+            <div class="Todos " *ngFor="let todo of todos" cdkDrag>
+                <button mat-raised-button (click)="OpenDetail(todo)" [color]="getTodoColor(todo.prio)"
+                    class="Todo-btn">{{todo.todoName}}</button>
+                <button mat-flat-button [matMenuTriggerFor]="todoMenu" [matMenuTriggerData]="{id:todo.id}" style="background-color: transparent;color: white;">
+                    <mat-icon style="height: 100%;">more_horiz</mat-icon>
+                </button>
+            </div>
+        </div>
+        <app-new-todo (NewTodoEvent)="ReceivedNewTodo($event)" [BoardId]="this.Id"></app-new-todo>
+    </div>
+</div>
+
+
+<mat-menu #todoMenu="matMenu">
+    <ng-template matMenuContent let-id="id">
+        <button mat-menu-item (click)="changeColor(2,id)">Imediately</button>
+        <button mat-menu-item (click)="changeColor(1,id)">Importance</button>
+        <button mat-menu-item [matMenuTriggerFor]="MoveMenu" [matMenuTriggerData]="{id : id}"
+            *ngIf="localBoards.length>0" class="Move_menu_for_mobile">Move</button>
+        <button mat-menu-item (click)="deleteTodo(id)">Delete</button>
+    </ng-template>
+</mat-menu>
+
+
+
+<mat-menu #MoveMenu="matMenu">
+    <ng-template matMenuContent let-id="id">
+        <button mat-menu-item (click)="UpdatePosition(id,item)"
+            *ngFor="let item of localBoards">{{item.boardName}}</button>
+    </ng-template>
+</mat-menu>

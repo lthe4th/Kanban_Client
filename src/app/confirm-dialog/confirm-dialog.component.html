@@ -1,0 +1,9 @@
+
+<div class="EditBoardName">
+    <mat-form-field>
+        <input matInput placeholder="New Name" value="{{data.name}}" #NewBoardName (keydown.enter)="ModName(NewBoardName.value);NewBoardName.valu=''">
+        <button mat-button mat-icon-button matSuffix (click)="ModName(NewBoardName.value);NewBoardName.value=''" >
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-form-field>
+</div>

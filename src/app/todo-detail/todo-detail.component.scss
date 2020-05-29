@@ -1,0 +1,63 @@
+@media only screen and (max-width:600px){
+    .Heading{
+        position: relative;
+        h5{
+            width: 100%;
+            text-align: center;
+            font-weight: bolder;
+        }
+    button{
+        background-color: transparent;
+        transform: translateY(-5px);
+        position: absolute;
+        top: 0;
+        right: 0;
+        mat-icon{
+            padding-bottom:5px;
+            font-size: 15px;
+            background-color: transparent
+        }
+        line-height: 5px;
+
+    }
+}
+mat-tab-group{
+    height: max-content;
+}
+.deletebtn {
+    margin-left: 40%;
+}
+.container-fluid{
+    padding: 0;
+}}
+.cut-text { 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    width: 90%; 
+    white-space: nowrap;
+        font-weight: bolder;
+        font-size: 20px;
+  }
+@media only screen and (min-width:600px){
+    .Heading{
+        position: relative;
+        text-overflow: ellipsis;
+        width: 100%;
+        button{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+        .checklist{
+            .progress_bar{
+                width: 50%;
+                max-height: 60%;
+            }
+            
+        }
+        .deletebtn{
+            float: right;
+            bottom: 0;
+        }
+}

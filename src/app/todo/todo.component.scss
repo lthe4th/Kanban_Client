@@ -1,0 +1,52 @@
+@media only screen and (max-width: 600px) {
+    .on_Desktop{
+        display: none;
+    }
+    .content{
+        padding: 0;
+    }
+    mat-card-actions{
+        margin: 1rem;
+    }
+    .on_mobile{
+        overflow-x: hidden;
+        .Todos{
+            width: 100%;
+            .Todo{
+                width: 80%;
+                white-space: normal;
+                text-align: left;
+                word-wrap: break-word;
+                margin: 5px 0;
+            }
+        }
+        
+    }
+    
+}
+
+@media only screen and (min-width: 600px){
+    .on_mobile{
+        display: none;
+    }
+    .Move_menu_for_mobile{
+        display:none;
+    }
+    .droplist{
+        min-height: 3rem;
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+    }
+    .Todos{
+        margin-bottom: .5rem;
+        width: 100%;
+        height: max-content;
+        .Todo-btn{
+            width: 70%;
+            white-space: normal;
+            word-wrap: break-word;
+            text-align: left;
+        }
+
+    }
+}

@@ -1,0 +1,36 @@
+@media only screen and (max-width : 600px){
+mat-checkbox{
+    display: block;
+}
+.NewItem{
+    mat-form-field{
+        width: 60%;
+    }
+    button{
+        padding: 0;
+        margin-left: 1rem;
+    }
+}
+.container-fluid{
+    margin-top: 10px;
+}
+}
+@media only screen and (min-width:600px){
+mat-checkbox{
+    display: block;
+}   
+.container-fluid{
+    min-width: 35rem;
+}
+.container-fluid::-webkit-scrollbar{
+    display: none;
+}
+.checklist{
+    overflow-y: hidden;
+}
+.checklist::-webkit-scrollbar{
+    display: none;
+}
+
+
+}

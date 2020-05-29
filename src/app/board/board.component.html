@@ -1,0 +1,123 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav">
+        <div class="sidenav-heading">
+            <img src="../../assets/logo.png" alt="logo">
+            <h2>Personal Kanban Board</h2>
+        </div>
+        <div class="sidenav-body">
+            <div class="newboard_mobile_sidebar">
+                <div class="inputfield">
+                    <mat-form-field>
+                        <mat-label>New Board</mat-label>
+                        <input matInput #newmobileboard
+                            (keydown.enter)="NewBoard(newmobileboard.value);newmobileboard.value=''">
+                    </mat-form-field>
+                    <button class="btn btn-success"
+                        (click)="NewBoard(newmobileboard.value);newmobileboard.value='';sidenav.close()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="ReportExport" style="margin: 2rem;">
+                <button mat-raised-button color="primary" style="height: 4rem;" (click)="getDownloadLink()"><mat-icon>get_app</mat-icon><span>Generate an excel file for this Section</span></button>
+            </div> 
+            <button mat-flat-button color="warn" (click)="DeleteEveryThing();sidenav.close()" style="height: 4rem;">Delete Everything</button>
+
+        </div>
+        <div class="sidenav-footer">
+            <p> ©copyright l.4th 2020</p>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <header>
+            <button (click)="sidenav.open()" mat-flat-button style="background-color: transparent; color: white;">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </header>
+
+        <body>
+            <div class="container-fluid">
+                <div class="on_mobile">
+                    <div class="new_when_nothing" *ngIf="boards.length<1">
+                        <h5 style="color: rgb(101, 177, 101);">New Board</h5>
+                        <mat-form-field>
+                            <mat-label style="color:  rgb(101, 177, 101);">Name</mat-label>
+                            <input matInput #newboardname
+                                (keydown.enter)="NewBoard(newboardname.value);newboardname.value=''" style="color: white;">
+                        </mat-form-field>
+                        <button class="btn btn-success" style="background-color: rgb(101, 177, 101);" (click)="NewBoard(newboardname.value);newboardname.value=''">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="BoardOnMobile" *ngIf="boards.length>0">
+                        <mat-tab-group >
+                            <mat-tab *ngFor="let board of boards" label="{{board.boardName}}" class="tpr">
+                                <mat-card class="tpr">
+                                    <mat-card-header class="rtpr" >
+                                        <mat-card-title >
+                                            <h4 style="font-size: 30px; margin-top: 10px;">{{board.boardName}}</h4>
+                                        </mat-card-title>
+                                        <button mat-button mat-flat-button class="rtpr"
+                                            [matMenuTriggerData]="{id : board.id, name:board.boardName}"
+                                            [matMenuTriggerFor]="boardmenu">
+                                            <mat-icon>expand_more</mat-icon>
+                                        </button>
+                                    </mat-card-header>
+                                    <app-todo (RaiseEvent)="RaiseEvent($event)" [afterRaise]="RaiseFlag"
+                                        [boards]="boards" [Id]="board.id"></app-todo>
+                                </mat-card>
+                            </mat-tab>
+
+                        </mat-tab-group>
+                    </div>
+                </div>
+
+                <div class="on_desktop"  scrollbar-hidden>
+                    <drag-scroll style="width: 100vw; height: 100vh;" >
+                        <div class="" style="display: -webkit-flex;flex-wrap: nowrap;;" cdkDropListGroup >
+                            <mat-card class="Board dtpr" *ngFor="let board of boards" >
+                                <mat-card-header>
+                                    <mat-card-title>{{board.boardName}}</mat-card-title>
+                                    <button mat-button mat-flat-button class="rtpr" 
+                                        [matMenuTriggerData]="{id : board.id, name:board.boardName}"
+                                        [matMenuTriggerFor]="boardmenu">
+                                        <mat-icon>expand_more</mat-icon>
+                                    </button>
+
+                                </mat-card-header>
+                                <app-todo [Id]="board.id"></app-todo>
+                            </mat-card>
+
+                            <div class="newboard">
+                                <div class="inputfield">
+                                    <mat-form-field>
+                                        <mat-label style="color: rgba(255, 255, 255, 0.5); font-size: larger;">New Board</mat-label>
+                                        <input matInput #newboardname style="color: white;"
+                                            (keydown.enter)="NewBoard(newboardname.value);newboardname.value=''">
+                                    </mat-form-field>
+                                    <button class="btn btn-success" style="line-height: 5px; margin-left: 1rem;"
+                                        (click)="NewBoard(newboardname.value);newboardname.value=''">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </drag-scroll>
+                </div>
+            </div>
+        </body>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<mat-menu #boardmenu="matMenu">
+    <ng-template matMenuContent let-id="id" let-name="name">
+        <button mat-menu-item (click)="ModBoard(name,id)"><span>
+                <mat-icon>edit</mat-icon>
+            </span>ChangeName</button>
+        <button mat-menu-item (click)="DeleteBoard(id)"><span>
+                <mat-icon>delete</mat-icon>
+            </span>Delete</button>
+    </ng-template>
+</mat-menu>
